@@ -25,7 +25,11 @@ def genderParser(inputDictionary, inputString):
 
 def testDataParser(inputDictionary, inputString):
     testDataSplit = inputString.split(",")
-    inputDictionary["TSHData"] = testDataSplit[1:]
+    testDataTagRm = testDataSplit[1:]
+    newData = []
+    for eachEntry in testDataTagRm:
+        newData.append(float(eachEntry))
+    inputDictionary["TSHData"] = sorted(newData)
     return inputDictionary
 
 
@@ -59,9 +63,9 @@ def saveData(outFile, inputDictionary):
 def diagnoseTSH(inputPatients):
     for eachPatient in inputPatients:
         tshData = eachPatient["TSHData"]
-        if any(float(tshReading) > 4 for tshReading in tshData):
+        if any(tshReading > 4 for tshReading in tshData):
             eachPatient["TSH Diagnosis"] = "hypothyroidism"
-        if any(float(tshReading) < 1 for tshReading in tshData):
+        if any(tshReading < 1 for tshReading in tshData):
             eachPatient["TSH Diagnosis"] = "hyperthyroidism"
         else:
             eachPatient["TSH Diagnosis"] = "normal thyroid function"
