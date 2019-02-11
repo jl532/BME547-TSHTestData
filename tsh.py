@@ -55,9 +55,21 @@ def saveData(outFile, inputDictionary):
     for eachPatient in inputDictionary:
         json.dump(eachPatient, fileWriter)
     fileWriter.close()
+    
+def diagnoseTSH(inputPatients):
+    for eachPatient in inputPatients:
+        tshData = eachPatient["TSHData"]
+        if any(float(tshReading) > 4 for tshReading in tshData):
+            eachPatient["TSH Diagnosis"] = "hypothyroidism"
+        if any(float(tshReading) < 1 for tshReading in tshData):
+            eachPatient["TSH Diagnosis"] = "hyperthyroidism"
+        else:
+            eachPatient["TSH Diagnosis"] = "normal thyroid function"
+    return inputPatients
 
 def main():
     patients = fileParser("test_data.txt")
+    patients = diagnoseTSH(patients)
     outFile = "patients.json"
     saveData(outFile, patients)
 
