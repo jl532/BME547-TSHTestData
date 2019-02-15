@@ -13,3 +13,6 @@ Developed by Jason Liu
 
 ## Specifications
 Can be found in the `specs.md` markdown file. 
+
+## BONUS:
+TSH data is sorted from lowest to highest before being output to the json output file
