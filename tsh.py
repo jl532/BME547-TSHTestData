@@ -160,12 +160,14 @@ def diagnoseTSH(inputPatients):
     """
     for eachPatient in inputPatients:
         tshData = eachPatient["TSHData"]
+        print(tshData)
         if any(tshReading > 4 for tshReading in tshData):
             eachPatient["TSH Diagnosis"] = "hypothyroidism"
-        if any(tshReading < 1 for tshReading in tshData):
+        elif any(tshReading < 1 for tshReading in tshData):
             eachPatient["TSH Diagnosis"] = "hyperthyroidism"
         else:
             eachPatient["TSH Diagnosis"] = "normal thyroid function"
+        print(eachPatient["TSH Diagnosis"])
     return inputPatients
 
 
