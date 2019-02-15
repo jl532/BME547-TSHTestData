@@ -9,7 +9,11 @@ import pytest
 
 
 @pytest.mark.parametrize("inputPatients, expected", [
-        ([{"TSHData": [3, 4, 5, 6]}], "hypothyroidism")
+        ([{"TSHData": [3, 4, 5, 6]}], "hypothyroidism"),
+        ([{"TSHData": [9, 9, 9]}], "hypothyroidism"),
+        ([{"TSHData": [0.1, 2, 3]}], "hyperthyroidism"),
+        ([{"TSHData": [0.1, 0.1, 0.2, 0.5]}], "hyperthyroidism"),
+        ([{"TSHData": [2, 3]}], "normal thyroid function"),
         ])
 def test_diagnoseTSH(inputPatients, expected):
     from tsh import diagnoseTSH
