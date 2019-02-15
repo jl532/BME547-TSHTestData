@@ -9,13 +9,10 @@ import pytest
 
 
 @pytest.mark.parametrize("inputPatients, expected", [
-        ({"TSHData" : [3, 4, 5, 6]}, 
-        {"TSHData" : [3, 4, 5, 6], "TSH Diagnosis":"hypothyroidism"}),
-        
-        
+        ([{"TSHData": [3, 4, 5, 6]}], "hypothyroidism")
         ])
 def test_diagnoseTSH(inputPatients, expected):
     from tsh import diagnoseTSH
-    
-    diagResults = diagnoseTSH(inputPatients)
-    assert diagResults == expected
+
+    diagResults = diagnoseTSH(inputPatients)[0]
+    assert diagResults["TSH Diagnosis"] == expected
